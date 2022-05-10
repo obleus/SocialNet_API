@@ -9,7 +9,6 @@ const {
     removeReaction
 } = require('../../controllers/pizza-controller');
 
-
 router
     .route('/')
     .get(getAllThought)
@@ -22,7 +21,7 @@ router
     .delete(removeThought);
 
 router
-    .route('/:userId/reactions/:reactionId')
+    .route('/:thoughtId/reactions/:reactionId')
     .post(addReaction)
     .delete(removeReaction)
 
