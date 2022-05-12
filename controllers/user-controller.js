@@ -1,6 +1,7 @@
 const { User, Thought } = require('../models');
+
 const userController = {
- 
+
     getAllUser(req, res) {
         User.find({})
             .select('-__v')
@@ -12,6 +13,7 @@ const userController = {
             });
     },
 
+  
     getUserById({ params }, res) {
         User.findOne({ _id: params.userId })
             .populate({
@@ -29,7 +31,7 @@ const userController = {
                 res.sendStatus(400);
             });
     },
-    // add thought to user
+  
     addUser({ params, body }, res) {
         console.log(params);
         User.create(body)
@@ -55,7 +57,7 @@ const userController = {
             })
             .catch(err => res.json(err));
     },
-  
+ 
     updateUser({ params, body }, res) {
         User.findOneAndUpdate(
             { _id: params.userId },
@@ -71,10 +73,9 @@ const userController = {
             })
             .catch(err => res.json(err));
     },
-   
+
     removeUser({ params }, res) {
         User.findOneAndDelete({ _id: params.userId })
-
             .then(deletedUser => {
                 if (!deletedUser) {
                     return res.status(404).json({ message: 'No user with this id!' });
@@ -85,9 +86,8 @@ const userController = {
             })
             .catch(err => res.json(err));
     },
-    // remove reply
+  
     removeFriend({ params }, res) {
-
         User.findOneAndUpdate(
             { _id: params.userId },
             { $pull: { friends: { friendId: params.friendId } } },
@@ -102,4 +102,5 @@ const userController = {
             .catch(err => res.json(err));
     }
 };
+
 module.exports = userController;
